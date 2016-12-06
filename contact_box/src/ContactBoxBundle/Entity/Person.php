@@ -2,6 +2,8 @@
 
 namespace ContactBoxBundle\Entity;
 
+use ContactBoxBundle\Entity\Address;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +14,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Person
 {
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="person")
+     */
+    private $address;
+
+    public function __construct() {
+        $this->addresses = new ArrayCollection();
+    }
+    
     /**
      * @var int
      *
@@ -121,4 +133,43 @@ class Person
     {
         return $this->description;
     }
+
+    /**
+     * Add address
+     *
+     * @param \ContactBoxBundle\Entity\Address $address
+     * @return Person
+     */
+    public function addAddress(\ContactBoxBundle\Entity\Address $address)
+    {
+        $this->address[] = $address;
+
+        return $this;
+    }
+
+    /**
+     * Remove address
+     *
+     * @param \ContactBoxBundle\Entity\Address $address
+     */
+    public function removeAddress(\ContactBoxBundle\Entity\Address $address)
+    {
+        $this->address->removeElement($address);
+    }
+
+    /**
+     * Get address
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+    
+    public function __toString()
+{
+    return (string) $this->getName() . " " . $this->getSurname();
+}
+    
 }

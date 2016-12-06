@@ -79,7 +79,7 @@ class PersonController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Person $person) {
-        $deleteForm = $this->createDeleteForm($person);
+        //$deleteForm = $this->createDeleteForm($person);
         $editForm = $this->createForm('ContactBoxBundle\Form\PersonType', $person);
         $editForm->handleRequest($request);
 
@@ -92,7 +92,7 @@ class PersonController extends Controller {
         return array(
                     'person' => $person,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    //'delete_form' => $deleteForm->createView(),
         );
     }
 
